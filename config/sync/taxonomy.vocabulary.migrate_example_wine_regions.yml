@@ -1,0 +1,13 @@
+uuid: 89c69a76-913d-4dbe-bf62-60a8538e77a0
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - migrate_example_advanced_setup
+_core:
+  default_config_hash: qCO6_EnmxFD0LbcwqR1bLEGzKUeTcfhKlLb5Ewo3KN0
+name: 'Migrate Example Wine Regions'
+vid: migrate_example_wine_regions
+description: 'Wine regions'
+weight: 0

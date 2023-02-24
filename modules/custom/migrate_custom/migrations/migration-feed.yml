@@ -1,0 +1,69 @@
+# Migration configuration for feeds
+id: migration_feed
+label: Migrate feeds
+migration_tags:
+  - news
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  urls:
+    - 'http://feeds.feedburner.com/ndtvnews-top-stories.xml'
+  item_selector: /rss/channel/item
+  fields:
+    -
+      name: guid
+      label: 'GUID'
+      selector: guid
+    -
+      name: title
+      label: 'Title'
+      selector: title
+    -
+      name: link
+      label: 'Link'
+      selector: link
+    -
+      name: pubDate
+      label: 'PubDate'
+      selector: pubDate
+    -
+      name: StoryImage
+      label: 'Story Image'
+      selector: 'media:content/@url'
+  ids:
+    guid:
+      type: string
+process:
+  title:
+    - plugin: callback
+      callable: htmlspecialchars_decode
+      source: title
+  field_link:
+    - plugin: skip_on_empty
+      method: process
+      source: link
+  field_guid:
+    - plugin: skip_on_empty
+      method: process
+      source: guid 
+  changed:
+    plugin: callback
+    callable: strtotime
+    source: 'now'
+    map_callback: format_date
+    source_format: U
+    destination_format: Y-m-d\TH:i:s
+  created:
+    plugin: format_date
+    from_format: 'D, d M Y H:i:s O'
+    to_format: 'Y-m-d\TH:i:s'
+    source: pubDate
+  field_story_image:
+    - plugin: file_remote_url
+      source: StoryImage
+      uid: 1
+destination:
+  plugin: entity:node
+  default_bundle: article
+

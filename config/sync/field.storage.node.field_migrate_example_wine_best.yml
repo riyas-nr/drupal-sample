@@ -1,0 +1,25 @@
+uuid: 95d37908-a39b-492e-b874-013b2d6bc488
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+  enforced:
+    module:
+      - migrate_example_advanced_setup
+_core:
+  default_config_hash: EIwBKnBd4Qa8V3UTQwUVxoL0B-M2hE9LwPGnSReCEPM
+id: node.field_migrate_example_wine_best
+field_name: field_migrate_example_wine_best
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
